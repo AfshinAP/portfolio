@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { Linkedin, Send, Terminal, ShieldCheck, Activity, GitBranch } from 'lucide-react';
+import { Linkedin, Send, Terminal, ShieldCheck, Activity, GitBranch, Github } from 'lucide-react';
 import { PERSONAL_INFO, CONTACT_INFO, PROFILE_IMAGE_URL } from '../constants';
 
-const PipelineStatus: React.FC = () => (
-  // Positioned at bottom-right with high z-index to avoid being hidden behind the image
-  <div className="absolute bottom-10 right-2 hidden 2xl:block animate-fade-in-up z-30">
-    <div className="bg-slate-900/95 border border-slate-700 rounded-lg p-4 font-mono text-xs shadow-2xl backdrop-blur-md w-72">
-      <div className="flex items-center gap-2 mb-3 text-gray-400 border-b border-gray-800 pb-2">
-        <Terminal size={14} className="text-qa-accent" />
-        <span className="font-bold tracking-wider">PIPELINE_STATUS</span>
+interface PipelineStatusProps {
+  className?: string;
+}
+
+const PipelineStatus: React.FC<PipelineStatusProps> = ({ className }) => (
+  <div className={`absolute z-30 ${className}`}>
+    <div className="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 font-mono text-[10px] shadow-2xl backdrop-blur-sm w-60 transform transition-all duration-500 hover:scale-105 hover:bg-slate-800/95 hover:border-emerald-500/30">
+      <div className="flex items-center gap-2 mb-2 text-gray-400 border-b border-gray-800 pb-1.5">
+        <Terminal size={12} className="text-qa-accent" />
+        <span className="font-bold tracking-wider text-[9px]">PIPELINE_STATUS</span>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">build_core</span>
-          <span className="text-emerald-500 flex items-center gap-2 bg-emerald-500/10 px-2 py-0.5 rounded">
-            PASS <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"/>
+          <span className="text-gray-500">build_core</span>
+          <span className="text-emerald-500 flex items-center gap-1.5 bg-emerald-500/5 px-1.5 py-0.5 rounded">
+            PASS <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"/>
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">unit_tests</span>
-          <span className="text-emerald-500 flex items-center gap-2 bg-emerald-500/10 px-2 py-0.5 rounded">
+          <span className="text-gray-500">unit_tests</span>
+          <span className="text-emerald-500 flex items-center gap-1.5 bg-emerald-500/5 px-1.5 py-0.5 rounded">
             PASS
           </span>
         </div>
          <div className="flex items-center justify-between">
-          <span className="text-gray-400">e2e_suites</span>
-          <span className="text-emerald-500 flex items-center gap-2 bg-emerald-500/10 px-2 py-0.5 rounded">
+          <span className="text-gray-500">e2e_suites</span>
+          <span className="text-emerald-500 flex items-center gap-1.5 bg-emerald-500/5 px-1.5 py-0.5 rounded">
             PASS
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">deploy_prod</span>
-          <span className="text-blue-400 flex items-center gap-2 bg-blue-500/10 px-2 py-0.5 rounded">
+          <span className="text-gray-500">deploy_prod</span>
+          <span className="text-blue-400 flex items-center gap-1.5 bg-blue-500/5 px-1.5 py-0.5 rounded">
             <span className="animate-spin duration-3000">⟳</span> RUNNING
           </span>
         </div>
       </div>
-      <div className="mt-3 pt-2 border-t border-gray-800 text-[10px] text-gray-500 flex justify-between">
-        <span>commit: 8f3a2c1</span>
-        <span>{new Date().toLocaleTimeString()}</span>
+      <div className="mt-2 pt-1.5 border-t border-gray-800 text-[9px] text-gray-600 flex justify-between font-medium">
+        <span>#8f3a2c1</span>
+        <span>{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
       </div>
     </div>
   </div>
@@ -66,7 +69,8 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="about" className="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-qa-dark">
+    // Reduced top padding (pt-24 md:pt-28) to move content up
+    <section id="about" className="relative pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden bg-qa-dark">
       {/* Technical Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -82,8 +86,6 @@ const Hero: React.FC = () => {
       {/* Decorative gradient glowing orbs - darker/subtler for professional look */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-blue-900/10 blur-[100px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-emerald-900/10 blur-[100px] rounded-full pointer-events-none"></div>
-
-      <PipelineStatus />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20">
@@ -116,7 +118,6 @@ const Hero: React.FC = () => {
                 className="flex items-center px-6 py-3 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] group"
               >
                 <Linkedin className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Connect on LinkedIn
               </a>
               <a 
                 href="#contact"
@@ -128,7 +129,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex-shrink-0 relative group">
+          <div className="flex-shrink-0 relative group mt-8 md:mt-0">
             <div className="w-64 h-64 md:w-80 md:h-80 relative">
               {/* Rotating rings for technical feel */}
               <div className="absolute inset-0 rounded-full border border-emerald-500/20 w-full h-full animate-[spin_10s_linear_infinite]"></div>
@@ -143,12 +144,18 @@ const Hero: React.FC = () => {
                 />
               </div>
 
+              {/* Pipeline Status - Keep relative to image, badge-style at Top Left */}
+              <PipelineStatus className="hidden xl:block -top-24 -left-36 transform -rotate-2 group-hover:rotate-0 transition-transform duration-500 origin-bottom-right" />
+
               {/* Badges */}
-              <div className="absolute -top-4 right-10 bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-xl flex items-center gap-2 transform rotate-3 group-hover:rotate-0 transition-transform">
+              {/* QA Certified - MOVED TO RIGHT (Top Right) */}
+              <div className="absolute top-6 -right-4 md:top-10 md:-right-12 bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-xl flex items-center gap-2 transform rotate-6 group-hover:rotate-0 transition-transform z-20">
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
                 <span className="text-xs font-mono font-bold text-gray-200">QA Certified</span>
               </div>
-              <div className="absolute -bottom-4 left-10 bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-xl flex items-center gap-2 transform -rotate-3 group-hover:rotate-0 transition-transform">
+              
+              {/* CI/CD Expert - MOVED TO LEFT (Bottom Left) */}
+              <div className="absolute bottom-6 -left-4 md:bottom-10 md:-left-12 bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-xl flex items-center gap-2 transform -rotate-6 group-hover:rotate-0 transition-transform z-20">
                 <GitBranch className="w-5 h-5 text-blue-400" />
                 <span className="text-xs font-mono font-bold text-gray-200">CI/CD Expert</span>
               </div>
