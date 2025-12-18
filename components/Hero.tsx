@@ -4,7 +4,7 @@ import { PERSONAL_INFO, CONTACT_INFO, PROFILE_IMAGE_URL } from '../constants';
 
 const PipelineStatus: React.FC = () => (
   // Positioned at bottom-right with high z-index to avoid being hidden behind the image
-  <div className="absolute bottom-10 right-10 hidden 2xl:block animate-fade-in-up z-30">
+  <div className="absolute bottom-10 right-2 hidden 2xl:block animate-fade-in-up z-30">
     <div className="bg-slate-900/95 border border-slate-700 rounded-lg p-4 font-mono text-xs shadow-2xl backdrop-blur-md w-72">
       <div className="flex items-center gap-2 mb-3 text-gray-400 border-b border-gray-800 pb-2">
         <Terminal size={14} className="text-qa-accent" />
